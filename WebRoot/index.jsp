@@ -107,6 +107,28 @@ body {
 $(function(){
 	// 获取window窗体
 	var jWindow = $(window);
+	// 获取顶部固定栏自身高度
+	var topHeight = $("#top_nav").height();
+	// 获取顶部固定栏到浏览器顶部的距离
+	var topStartPos = $("#top_nav").offset().top;
+	var totalHeight = topHeight + topStartPos;
+	<%--Window滚动事件监听-实现顶部固定--%>
+	jWindow.scroll(function () {
+		// 获取滚动条到顶部的高度
+		var p = $(window).scrollTop();
+		if (p >= totalHeight) {
+			$("#fixed_top_hide").css({
+				"position": "fixed",// position固定定位
+				"top": 0,// 距离浏览器顶部0
+				"display": "block"// 布局显示
+			});
+		} else {
+			$("#fixed_top_hide").css({
+				"position": "static",// position默认状态
+				"display": "none"// 布局隐藏
+			});
+		}
+	});
 	
 	// 获取右侧固定栏到浏览器顶部的距离
 	var elmStartPos = $("#content_right").offset().top;
